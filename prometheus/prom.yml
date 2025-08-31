@@ -1,21 +1,17 @@
 global:
   scrape_interval: 15s # Default scrape interval
+  evaluation_interval: 15s
 
 scrape_configs:
+  # Scrape o próprio Prometheus
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  # - job_name: 'example_api'
-  #   scheme: http
-  #   static_configs:
-  #     - targets: ['example_api:9091']
-
-  #  ? TODO: add your services here
-  # - job_name: 'your-job-name'
-  #   scheme: https
-  #   static_configs:
-  #     - targets: ['URL_GOES_HERE']
-  #   basic_auth:
-  #     username: HTTP_AUTH_USERNAME_GOES_HERE
-  #     password: HTTP_AUTH_PASSWORD_GOES_HERE
+  # Scrape da sua API de e-mails
+  - job_name: 'email-api'
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - 'email-api-golf-battle.railway.internal:8085'  # ajuste a porta se a sua API expõe outra
