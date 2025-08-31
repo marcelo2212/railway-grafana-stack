@@ -1,17 +1,14 @@
 global:
-  scrape_interval: 15s # Default scrape interval
+  scrape_interval: 15s
   evaluation_interval: 15s
 
 scrape_configs:
-  # Scrape o próprio Prometheus
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  # Scrape da sua API de e-mails
   - job_name: 'email-api'
     metrics_path: /metrics
-    scheme: http
     static_configs:
       - targets:
-          - 'email-api-golf-battle.railway.internal:8085'  # ajuste a porta se a sua API expõe outra
+          - 'email-api-golf-battle.railway.internal:8085'   # ajuste para a porta real da API
